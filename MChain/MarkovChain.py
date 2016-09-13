@@ -9,10 +9,11 @@ class MarkovChain:
         TDict = {}
         Tokens = []
         with open(path, 'r') as f:
-            for word in f.readline().split():
-                Tokens.append(word)
-                if word != [] and word not in TDict.keys():
-                    TDict[word] = []
+            for line in f.readlines():
+                for word in line.split():
+                    Tokens.append(word)
+                    if word != [] and word not in TDict.keys():
+                        TDict[word] = []
         return TDict, Tokens
 
     def initSimpleChain(self, Tokens, TDict):
@@ -31,33 +32,19 @@ class MarkovChain:
             Sum = [list(d.values()) for d in TDict[key]]
             for d in TDict[key]:
                 for key in d:
-                    d[key] = d[key] / reduce(lambda x, y: x+y, [x for x in Sum])
+                    d[key] = d[key] / reduce(lambda x, y: x + y, reduce(lambda x,y: x+y, Sum))
 
     def buildText(self, Chain):
         self.state = outText = choice(list(Chain.keys()))
         for i in range(self.iterations):
-            step = uniform(0,1)
-            for d in Chain[self.state]:
-                for key in d:
-                    if d[key] < step:
-                        self.state = key
-                    else:
-                        step = uniform(0,1)
-                        continue
-            outText = outText + self.state + ' '
+            step = uniform(0, 1)
+            self.getState(Chain)
+            outText = outText + ' ' + self.state + ' '
         return outText
 
-    def buildText(Chain):
-        state = outText = choice(list(Chain.keys()))
-        for i in range(20):
-            step = uniform(0,1)
-            for d in Chain[state]:
-                for key in d:
-                    if d[key] < step:
-                        state = key
-                        break
-                    else:
-                        step = uniform(0,1)
-                        continue
-            outText = outText + ' ' + state + ' '
-        return outText
+    def getState(self, Chain):
+        step = uniform(0, 1.1)
+        print('Current step is: ', step, ' And state is: ', self.state)
+        for d in Chain[self.state]:
+            self.state = choice(list(d.keys()))
+            return
