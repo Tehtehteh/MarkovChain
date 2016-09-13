@@ -4,7 +4,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.idea/
 # C extensions
 *.so
 
@@ -92,3 +92,8 @@ ENV/
 
 .gitignore
 .idea/workspace.xml
+.idea/MarkovChain.iml
+.idea/misc.xml
+.idea/modules.xml
+test.txt
+test.txt~
