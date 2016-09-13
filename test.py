@@ -1,7 +1,7 @@
 from MChain import MarkovChain
 
 def main():
-    MC = MarkovChain.MarkovChain(10)
+    MC = MarkovChain.MarkovChain(20)
 
     TDict, Tokens = MC.initMTuple('test2.txt')
     MC.initSimpleChain(Tokens,TDict)

@@ -8,7 +8,7 @@ class MarkovChain:
     def initMTuple(self, path):
         TDict = {}
         Tokens = []
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             for line in f.readlines():
                 for word in line.split():
                     Tokens.append(word)
@@ -32,7 +32,7 @@ class MarkovChain:
             Sum = [list(d.values()) for d in TDict[key]]
             for d in TDict[key]:
                 for key in d:
-                    d[key] = d[key] / reduce(lambda x, y: x + y, reduce(lambda x,y: x+y, Sum))
+                    d[key] = d[key] / reduce(lambda x, y: x + y, [x[0] for x in Sum])
 
     def buildText(self, Chain):
         self.state = outText = choice(list(Chain.keys()))
