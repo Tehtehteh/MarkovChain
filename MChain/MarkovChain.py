@@ -41,10 +41,14 @@ class MarkovChain:
             self.getState(Chain)
             outText = outText + ' ' + self.state + ' '
         return outText
-
+    # I should make func to get max value (max probability of next word)
+    # and from this point I should declare my uniform in range of
+    # 0 to that max value. But what if max probability (value) is first?
+    # Then every step would return this first word.
     def getState(self, Chain):
         step = uniform(0, 1.1)
         print('Current step is: ', step, ' And state is: ', self.state)
         for d in Chain[self.state]:
             self.state = choice(list(d.keys()))
+            print(self.state,'--out of possible', list(d.keys()))
             return
